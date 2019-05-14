@@ -22,7 +22,7 @@ def login():
         body = request.get_json()
         if body["indexnumber"] == "PS/CSC/15/0004" and body["password"] == "effa":
             # return jsonify({"Success": True})
-            return redirect(url_for('index'))
+            return redirect(url_for("index"))
 
         else:
             return jsonify(
@@ -41,22 +41,34 @@ def reset():
             }
         )
     else:
-        email = request.get_json("email")
-
+        body = request.get_json()
+        if not body:
+            return jsonify(
+                {"Success": False, "Message": "Please provide email as body"}
+            )
         # check if email contains @ and . before you can send the email.
         # if possible use the students email
-        if len(email) == 0:
+        if len(body["email"]) == 0:
             return jsonify(
-                {"Success": False, "Message": "Please enter your email address"}
+                {
+                    "Success": False,
+                    "Message": "Please enter your email address. It cant be empty",
+                }
             )
         else:
-            return jsonify({"Success": True, "Message": "Email sent"})
+            # return jsonify({"Success": True, "Message": "Email sent"})
+            return redirect(url_for("securityquestion"))
     return jsonify({"Success": True, "Message": ""})
 
 
 @app.route("/api/v1/logout")
 def logout():
     return jsonify({"Success": True, "Message": "Logout successfull"})
+
+
+@app.route("/api/v1/security")
+def securityquestion():
+    return jsonify({"Success": True, "Message": "Security question is on its way"})
 
 
 # @app.route("/test")
