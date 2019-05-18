@@ -1,1 +1,14 @@
 This is a simple project for final year students of CS
+
+
+Capabilities or routes for the REST
+- Service information
+- Personal Details
+- Verify Details
+- Registration
+- Statement of Results
+- Survey
+- Fees
+- Exams TimeTable
+- Logout
+- Reset Password

@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, make_response, redirect, url_for
 from flask_cors import CORS
 import jwt
+import datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -30,6 +31,10 @@ def login():
             )
         # return jsonify({"Success": True, "Message": "Welcome " + response["username"]})
 
+
+@app.route('/api/v1/info')
+def info():
+    return jsonify({"Success": True, "Message": "This is the route for the service information"})
 
 @app.route("/api/v1/reset", methods=["POST", "GET"])
 def reset():
@@ -61,29 +66,55 @@ def reset():
     return jsonify({"Success": True, "Message": ""})
 
 
-@app.route("/api/v1/logout")
-def logout():
-    return jsonify({"Success": True, "Message": "Logout successfull"})
-
-
 @app.route("/api/v1/security")
 def securityquestion():
     return jsonify({"Success": True, "Message": "Security question is on its way"})
 
 
-# @app.route("/test")
-# def test():
-#     import datetime
+@app.route("/test")
+def test():
 
-#     token = jwt.JWT.encode(
-#         {
-#             "name": "Dennis",
-#             "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=60),
-#         },
-#         "Secret",
-#     )
+    token = jwt.encode(
+        {
+            "name": "Dennis",
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=60),
+            "iss": "University of Cape Coast"
+        },
+        "Secret",
+    )
 
-#     return jsonify({"Token": token.decode("UTF-C")})
+    return jsonify({"Token": token.decode()}) 
+
+
+@app.route("/api/v1/fees")
+def fees():
+    return jsonify({"Suucess": True, "Message": "This is fees route"})
+
+
+@app.route("/api/v1/account/verify")
+def verify():
+    return jsonify({"Suucess": True, "Message": "This is verify route"})
+
+
+@app.route("/api/v1/account/resetpassword")
+def resetpassword():
+    return jsonify({"Suucess": True, "Message": "This is reset route"})
+
+
+@app.route("/api/v1/timetable")
+def timetable():
+    return jsonify(
+        {"Success": True, "Message": "The timetable will be displayed in this route"}
+    )
+
+
+@app.route('/api/v1/register')
+def registration():
+    return jsonify({"Success": True, "Message": "Courses for the semester open for registration will be here"})
+
+@app.route("/api/v1/account/logout")
+def logout():
+    return jsonify({"Success": True, "Message": "Logout successfull"})
 
 
 if __name__ == "__main__":
