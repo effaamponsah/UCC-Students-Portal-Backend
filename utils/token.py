@@ -16,12 +16,14 @@ def token_required(f):
             )
 
         try:
-            data = jwt.decode(token, "secret")
+            data = jwt.decode(
+                token, "226905605219861890656256635479281220067966797385942583903537"
+            )
             indexnumber = (data["indexnumber"],)
             db_id = data["id"]
         except:
             return jsonify(Success=False, Message="Token is invalid or is expired")
 
-        return f(indexnumber, db_id * args, **kwargs)
+        return f(indexnumber, db_id, *args, **kwargs)
 
     return decorated
